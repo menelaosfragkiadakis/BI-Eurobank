@@ -1,0 +1,37 @@
+/********************************************************************
+*  NAME: DAILY BALANCES TARGET TABLE                                *
+*  AUTHOR: N.KARATZAS                                               *
+*  DESCRIPTION: PILLAR SERVICER AU BALANCES                         *
+*                                                                   *
+* DATE          AUTHOR          DESCRIPTION                         *
+* ----------    ------------    ----------------------------------  *
+* 2019-05-27    N.KARATZAS      PEM 13396                           *
+********************************************************************/
+
+CALL DW_PROD_ST.SC_DROP ('TABLE','DW_SEC_TA.PL_AU_AR_D', '');
+
+
+CREATE TABLE DW_SEC_TA.PL_AU_AR_D
+(     
+   MSR_PRD_ID               INTEGER         NOT NULL    ,
+   AR_ID                    INTEGER         NOT NULL    ,
+   PRNCP_ON_BAL_LCY         DECIMAL(15,2)   NOT NULL    ,
+   PRNCP_OFF_BAL_LCY        DECIMAL(15,2)   NOT NULL    ,
+   GRS_CRG_AMT_LCY          DECIMAL(15,2)   NOT NULL    ,
+   ADJ_GRS_CRG_AMT_LCY      DECIMAL(15,2)   NOT NULL    ,
+   INT_ON_BAL_LCY           DECIMAL(15,2)   NOT NULL    ,
+   INT_OFF_BAL_LCY          DECIMAL(15,2)   NOT NULL    ,
+   OTH_FEE_ON_BAL_LCY       DECIMAL(15,2)   NOT NULL    ,
+   OTH_FEE_OFF_BAL_LCY      DECIMAL(15,2)   NOT NULL    ,
+   ACCRUED_AMT_LCY          DECIMAL(15,2)   NOT NULL    ,
+   PILLAR_BOOK_BAL_LCY      DECIMAL(15,2)   NOT NULL    ,
+   TOTAL_CLAIM_LCY          DECIMAL(15,2)   NOT NULL    ,
+   PPN_STAMP                TIMESTAMP       NOT NULL    ,
+   PPN_ACT                  CHAR(1)         NOT NULL    ,
+   PPN_PROC                 CHAR(10)        NOT NULL    ,
+   
+   PRIMARY KEY(MSR_PRD_ID, AR_ID)
+);
+
+CALL DW_PROD_ST.SC_STRJRNL
+        ('DW_SEC_TA', 'PL_AU_AR_D', 'JOURNALIB', 'DB2JRN');
